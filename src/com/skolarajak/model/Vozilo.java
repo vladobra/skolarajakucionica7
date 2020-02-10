@@ -1,7 +1,7 @@
 package com.skolarajak.model;
 
 /**
- * Model klasa Vozila
+ * Model klasa Vozila.
  * 
  * @author vladobra
  *
