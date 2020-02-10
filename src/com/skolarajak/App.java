@@ -5,7 +5,7 @@ import com.skolarajak.model.Vozilo;
 import com.skolarajak.servisi.AdministriranjeVozila;
 
 /**
- * Glavna aplikacija
+ * Glavna aplikacija za administraciju vozila.
  * 
  * @author vladobra
  *
