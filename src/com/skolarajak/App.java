@@ -12,6 +12,7 @@ import com.skolarajak.servisi.AdministriranjeVozila;
  */
 public class App {
 	public static void main(String[] args) {
+		System.out.println("Pocetak rada");
 		AdministriranjeVozila generisiVozila = new AdministriranjeVozila();
 		List<Vozilo> vozila = generisiVozila.generisi();
 		System.out.println(vozila.size());
