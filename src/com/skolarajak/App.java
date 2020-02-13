@@ -1,5 +1,6 @@
 package com.skolarajak;
 
+import java.util.Date;
 import java.util.List;
 import com.skolarajak.model.Vozilo;
 import com.skolarajak.servisi.AdministriranjeVozila;
@@ -12,7 +13,8 @@ import com.skolarajak.servisi.AdministriranjeVozila;
  */
 public class App {
 	public static void main(String[] args) {
-		System.out.println("Pocetak rada");
+		Date datum = new Date();
+		System.out.println("Pocetak rada u: " + datum.toString());
 		AdministriranjeVozila generisiVozila = new AdministriranjeVozila();
 		List<Vozilo> vozila = generisiVozila.generisi();
 		System.out.println(vozila.size());
