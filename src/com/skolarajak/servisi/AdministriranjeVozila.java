@@ -27,7 +27,7 @@ public class AdministriranjeVozila {
     		int godinaProizvodnje = dodeliGodinuProizvodnje();
     		Vozilo vozilo = new Vozilo(godinaProizvodnje);
     		vozilo.setAktivno(Math.random() > PRAG_RASPODELE_AKTIVNIH_VOZILA);
-    		vozilo.setRegistarskiBroj("Reg-"+i+slucajnoSlovo()+slucajnoSlovo());
+    		vozilo.setRegistarskiBroj(kreirajRegistarskiBroj());
     		vozila.add(vozilo);
     	}
 		return vozila;
@@ -51,7 +51,23 @@ public class AdministriranjeVozila {
     }
     
     public List<Vozilo> aktivnaVozila(List<Vozilo> vozila) {
-    	return null;
+    	/*
+    	List<Vozilo> aktivnaVozila = new ArrayList<Vozilo>();
+    	for (Vozilo vozilo : vozila) {
+    		if (vozilo.isAktivno()) {
+    			aktivnaVozila.add(vozilo);
+    		}
+    	}
+    	*/
+    	List<Vozilo> aktivnaVozila = vozila.stream()
+                .filter(v -> v.isAktivno())
+                .collect(Collectors.toList());
+    	
+    	return aktivnaVozila;
+    }
+    
+    private String kreirajRegistarskiBroj() {
+    	return "Reg-"+slucajnoSlovo()+slucajnoSlovo();
     }
     
     private int dodeliGodinuProizvodnje() {
