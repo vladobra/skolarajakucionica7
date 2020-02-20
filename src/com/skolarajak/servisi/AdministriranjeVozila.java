@@ -1,6 +1,7 @@
 package com.skolarajak.servisi;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,8 @@ public class AdministriranjeVozila {
 	private static final double PRAG_RASPODELE_AKTIVNIH_VOZILA = 0.4;
 	private static final int SLOVO_A = 65;
 	private static final int SLOVO_Z = 90;
+	
+	private static final HashMap<String,String> registarskiBrojevi = new HashMap<String, String>();
 	/**
 	 * Vrati test vozila
 	 * @return List<Vozilo> test vozila
@@ -30,6 +33,7 @@ public class AdministriranjeVozila {
     		vozilo.setRegistarskiBroj(kreirajRegistarskiBroj());
     		vozila.add(vozilo);
     	}
+    	System.out.println("UKUPNO reg brojeva: " + registarskiBrojevi.keySet().size());
 		return vozila;
     }
     
@@ -67,7 +71,26 @@ public class AdministriranjeVozila {
     }
     
     private String kreirajRegistarskiBroj() {
-    	return "Reg-"+slucajnoSlovo()+slucajnoSlovo();
+    	/*String registarskiBroj = "Reg-"+slucajnoSlovo()+slucajnoSlovo();
+    	if (registarskiBrojevi.containsKey(registarskiBroj)) {
+    		System.out.println("*********** DUPLICAT **************" + registarskiBroj);
+    		return kreirajRegistarskiBroj();
+    	}
+    	registarskiBrojevi.put(registarskiBroj, registarskiBroj);
+        return registarskiBroj;*/
+    	
+    	String registarskiBroj = "";
+    	
+    	while(1==1) {
+            registarskiBroj = "Reg-"+slucajnoSlovo()+slucajnoSlovo();
+    		if (!registarskiBrojevi.containsKey(registarskiBroj)) {
+    			registarskiBrojevi.put(registarskiBroj, null);
+    			break;
+    		} else {
+    			System.out.println("*********** DUPLICAT **************" + registarskiBroj);
+    		}
+    	}
+    	return registarskiBroj;
     }
     
     private int dodeliGodinuProizvodnje() {
