@@ -29,9 +29,10 @@ public class AppConsole {
 		Scanner in = new Scanner(System.in);
 		while (1==1) {
 			prikaziOpcije();
-			System.out.println(">:");
+			
 	        String s = in.nextLine();
 	        System.out.println("You entered string "+s);
+	        System.out.println(">:");
 	        switch (s) {
 	            case "0" : opcija0(vozila); break;
 	        	case "1" : opcija1(vozila); break;
