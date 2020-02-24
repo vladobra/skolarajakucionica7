@@ -19,21 +19,26 @@ public class AdministriranjeVozila {
 	private static final int SLOVO_A = 65;
 	private static final int SLOVO_Z = 90;
 	
-	private static final HashMap<String,String> registarskiBrojevi = new HashMap<String, String>();
+	private static final HashMap<String,Vozilo> registarskiBrojevi = new HashMap<String, Vozilo>();
 	/**
 	 * Vrati test vozila
 	 * @return List<Vozilo> test vozila
 	 */
     public List<Vozilo> generisi() {
     	List<Vozilo> vozila = new ArrayList<Vozilo>();
+    	String registarskiBroj = "";
     	for(int i = 0; i < Konstante.UKUPAN_BROJ_VOZILA_U_SISTEMU; i++) {
     		int godinaProizvodnje = dodeliGodinuProizvodnje();
     		Vozilo vozilo = new Vozilo(godinaProizvodnje);
     		vozilo.setAktivno(Math.random() > PRAG_RASPODELE_AKTIVNIH_VOZILA);
-    		vozilo.setRegistarskiBroj(kreirajRegistarskiBroj());
+    		registarskiBroj = kreirajRegistarskiBroj();
+    		vozilo.setRegistarskiBroj(registarskiBroj);
     		vozila.add(vozilo);
+    		registarskiBrojevi.put(registarskiBroj, vozilo);
     	}
     	System.out.println("UKUPNO reg brojeva: " + registarskiBrojevi.keySet().size());
+    	System.out.println("UKUPNO vozila: " + registarskiBrojevi.values().size());
+    	System.out.println("Godina proizvodnje poslednjeg registrovanog: " + registarskiBroj + " : " + registarskiBrojevi.get(registarskiBroj).getGodisteProizvodnje());
 		return vozila;
     }
     
