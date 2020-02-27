@@ -2,6 +2,7 @@ package com.skolarajak.dao;
 
 import java.util.HashMap;
 
+import com.skolarajak.exceptions.dao.ResultNotFoundException;
 import com.skolarajak.model.Vozilo;
 import com.skolarajak.utils.RandomUtils;
 
@@ -16,21 +17,23 @@ public class VoziloInMemoryDAOImpl implements VoziloInMemoryDAO {
 	}
 
 	@Override
-	public Vozilo read(String registarskiBroj) {
-		// TODO Auto-generated method stub
-		return registrovanaVozila.get(registarskiBroj);
+	public Vozilo read(String registarskiBroj) throws ResultNotFoundException {
+		Vozilo vozilo = registrovanaVozila.get(registarskiBroj);
+		if (vozilo == null) {
+			throw new ResultNotFoundException("Objekat nije pronadjen");
+		}
+		return vozilo;
 	}
 
 	@Override
 	public Vozilo update(Vozilo vozilo) {
-		// TODO Auto-generated method stub
-		return null;
+		registrovanaVozila.put(vozilo.getRegistarskiBroj(), vozilo);
+		return vozilo;
 	}
 
 	@Override
 	public void delete(String registarskiBroj) {
-		// TODO Auto-generated method stub
-
+		registrovanaVozila.remove(registarskiBroj);
 	}
 
 	private String kreirajRegistarskiBroj() {    	
