@@ -1,6 +1,9 @@
 package com.skolarajak.dao;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.skolarajak.exceptions.dao.ResultNotFoundException;
 import com.skolarajak.model.Vozilo;
@@ -54,5 +57,26 @@ public class VoziloInMemoryDAOImpl implements VoziloInMemoryDAO {
 	@Override
 	public long count() {
 		return VoziloInMemoryDAOImpl.registrovanaVozila.keySet().size();
+	}
+
+	@Override
+	public List<Vozilo> getAll() throws ResultNotFoundException {
+		return VoziloInMemoryDAOImpl.registrovanaVozila.values()
+				.stream().collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Vozilo> getEuro3Vozila() {
+		// TODO Auto-generated method stub
+		return  VoziloInMemoryDAOImpl.registrovanaVozila.values()
+				.stream().filter(v -> v.getGodisteProizvodnje() >= 2010)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Vozilo> getAktivnaVozila() {
+		// TODO Auto-generated method stub
+		return VoziloInMemoryDAOImpl.registrovanaVozila.values()
+				.stream().filter(v -> v.isAktivno()).collect(Collectors.toList());
 	}
 }

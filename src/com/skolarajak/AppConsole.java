@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import com.skolarajak.exceptions.dao.ResultNotFoundException;
 import com.skolarajak.model.Vozilo;
 import com.skolarajak.servisi.AdministriranjeVozila;
 
@@ -16,13 +17,13 @@ import com.skolarajak.servisi.AdministriranjeVozila;
 public class AppConsole {
 	static final AdministriranjeVozila administracijaVozila = new AdministriranjeVozila();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ResultNotFoundException {
 		Date datum = new Date();
 		System.out.println("Pocetak rada aplikacije: " + datum.toString());
 		
 		// generisi vozila
 		
-		List<Vozilo> vozila = administracijaVozila.generisi();
+		administracijaVozila.generisi();
 		
 		System.out.println("-----------------Glavna programska petlja--------------------");
 		
@@ -34,34 +35,34 @@ public class AppConsole {
 	        System.out.println("You entered string "+s);
 	        System.out.println(">:");
 	        switch (s) {
-	            case "0" : opcija0(vozila); break;
-	        	case "1" : opcija1(vozila); break;
-	        	case "2" : opcija2(vozila); break;
+	            case "0" : opcija0(); break;
+	        	case "1" : opcija1(); break;
+	        	case "2" : opcija2(); break;
 	        }
 	        if ("kraj".equals(s)) {
 	        	System.out.println("KRAJ RADA, HVALA!!");
 	        	break;
 	        }
 		}
-		
 	}
 	
-	private static void opcija0(List<Vozilo> vozila) {
+	private static void opcija0() throws ResultNotFoundException {
+		List<Vozilo> vozila = administracijaVozila.dajSvaVozila();
 		System.out.println("=====IZLISTAJ VOZILA======");
 		System.out.println("Ukupno vozila: " + vozila.size());
 		izlistajVozila(vozila);
 	}
 	
-	private static void opcija1(List<Vozilo> vozila) {
+	private static void opcija1() {
 		System.out.println("=====IZLISTAJ EURO3 VOZILA======");
-		List<Vozilo> euro3Vozila = administracijaVozila.euro3Vozila(vozila);
+		List<Vozilo> euro3Vozila = administracijaVozila.euro3Vozila();
 		System.out.println(euro3Vozila.size());
 		izlistajVozila(euro3Vozila);
 	}
 	
-    private static void opcija2 (List<Vozilo> vozila) {
+    private static void opcija2 () {
     	System.out.println("=====IZLISTAJ AKTIVNA VOZILA======");
-    	List<Vozilo> aktivnaVozila = administracijaVozila.aktivnaVozila(vozila);
+    	List<Vozilo> aktivnaVozila = administracijaVozila.aktivnaVozila();
 		System.out.println(aktivnaVozila.size());
 		izlistajVozila(aktivnaVozila);
 	}
@@ -76,9 +77,6 @@ public class AppConsole {
 	}
 	
 	private static void izlistajVozila(List<Vozilo> vozila) {
-		/*for (Vozilo vozilo : vozila) {
-			printVozilo(vozilo);
-		}*/
 		vozila.forEach(AppConsole::printVozilo);
 	}
 	
