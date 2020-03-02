@@ -9,7 +9,7 @@ import com.skolarajak.exceptions.dao.ResultNotFoundException;
 import com.skolarajak.model.Vozilo;
 import com.skolarajak.utils.RandomUtils;
 
-public class VoziloInMemoryDAOImpl implements VoziloInMemoryDAO {
+public class VoziloInMemoryDAOImpl implements VoziloDAO {
 	private static final HashMap<String,Vozilo> registrovanaVozila = new HashMap<String, Vozilo>();
 	@Override
 	public Vozilo create(Vozilo vozilo) {

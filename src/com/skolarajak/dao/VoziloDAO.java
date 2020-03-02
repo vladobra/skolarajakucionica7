@@ -6,7 +6,7 @@ import java.util.List;
 import com.skolarajak.exceptions.dao.ResultNotFoundException;
 import com.skolarajak.model.Vozilo;
 
-public interface VoziloInMemoryDAO {
+public interface VoziloDAO {
 	Vozilo create(Vozilo vozilo);
 	Vozilo read(String registarskiBroj) throws ResultNotFoundException;
 	Vozilo update(Vozilo vozilo);
