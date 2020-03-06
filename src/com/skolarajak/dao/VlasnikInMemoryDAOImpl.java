@@ -71,7 +71,7 @@ public class VlasnikInMemoryDAOImpl implements VlasnikDAO {
 
 	@Override
 	public List<Vlasnik> getAllVlasniciAktivnihVozila() throws ResultNotFoundException {
-		return VlasnikInMemoryDAOImpl.vlasnici.values()
+		return getAll()
 		.stream().filter(v -> v.getVozilo().isAktivno()).collect(Collectors.toList());
 	}
 
