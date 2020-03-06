@@ -2,6 +2,7 @@ package com.skolarajak.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.skolarajak.exceptions.dao.ResultNotFoundException;
 import com.skolarajak.model.Vlasnik;
@@ -27,24 +28,27 @@ public class VlasnikInMemoryDAOImpl implements VlasnikDAO {
 		return vlasnik;
 	}
 
+	@Override
 	public Vlasnik update(Vlasnik vlasnik) {
-
-		return null;
+		vlasnici.put(vlasnik.getBrojVozackeDozvole(), vlasnik);
+		return vlasnik;
 	}
 
+	@Override
 	public void delete(String brojVozackeDozvole) {
-		// TODO Auto-generated method stub
+		vlasnici.remove(brojVozackeDozvole);
 
 	}
 
+	@Override
 	public List<Vlasnik> getAll() throws ResultNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return VlasnikInMemoryDAOImpl.vlasnici.values().stream().collect(Collectors.toList());
 	}
 
+	@Override
 	public long count() {
-		// TODO Auto-generated method stub
-		return 0;
+		return VlasnikInMemoryDAOImpl.vlasnici.keySet().size();
 	}
 
 	private String kreirajBrojVozackeDozvole() {
