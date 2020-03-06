@@ -3,9 +3,12 @@ package com.skolarajak.servisi;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.skolarajak.dao.VlasnikDAO;
+import com.skolarajak.dao.VlasnikInMemoryDAOImpl;
 import com.skolarajak.dao.VoziloDAO;
 import com.skolarajak.dao.VoziloInMemoryDAOImpl;
 import com.skolarajak.exceptions.dao.ResultNotFoundException;
+import com.skolarajak.model.Vlasnik;
 import com.skolarajak.model.Vozilo;
 import com.skolarajak.utils.Konstante;
 import com.skolarajak.utils.RandomUtils;
@@ -21,9 +24,11 @@ public class AdministriranjeVozila {
 	private static final double PRAG_RASPODELE_AKTIVNIH_VOZILA = 0.4;
 
 	private VoziloDAO voziloDAO;
+	private VlasnikDAO vlasnikDAO;
 
 	public AdministriranjeVozila() {
 		voziloDAO = new VoziloInMemoryDAOImpl();
+		vlasnikDAO = new VlasnikInMemoryDAOImpl();
 	}
 
 	/**
@@ -40,7 +45,21 @@ public class AdministriranjeVozila {
 				Vozilo vozilo = new Vozilo(godinaProizvodnje);
 				vozilo.setAktivno(Math.random() > PRAG_RASPODELE_AKTIVNIH_VOZILA);
 				zadnjeVozilo = voziloDAO.create(vozilo);
+				
+				Vlasnik vlasnik = new Vlasnik();
+				vlasnik = vlasnikDAO.create(vlasnik);
+				vlasnik.setVozilo(zadnjeVozilo);
+				
+				vlasnik = vlasnikDAO.update(vlasnik);
+				
+				zadnjeVozilo.setVlasnik(vlasnik);
+				zadnjeVozilo = voziloDAO.update(zadnjeVozilo);
 			}
+			
+			System.out.println("Vlasnik : " 
+			+ zadnjeVozilo.getVlasnik().getIme() + " " 
+			+ zadnjeVozilo.getVlasnik().getPrezime() + " "
+			+ zadnjeVozilo.getVlasnik().getBrojVozackeDozvole());
 
 			System.out.println("UKUPNO reg brojeva: " + voziloDAO.count());
 			

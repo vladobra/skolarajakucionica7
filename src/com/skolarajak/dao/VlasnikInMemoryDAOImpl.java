@@ -16,6 +16,9 @@ public class VlasnikInMemoryDAOImpl implements VlasnikDAO {
 	public Vlasnik create(Vlasnik vlasnik) {
 		String brojVozackeDozvole = kreirajBrojVozackeDozvole();
 		vlasnik.setBrojVozackeDozvole(brojVozackeDozvole);
+		// ime i prezime ABC DEF
+		vlasnik.setIme(RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo());
+		vlasnik.setPrezime(RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo());
 		vlasnici.put(vlasnik.getBrojVozackeDozvole(), vlasnik);
 		return vlasnik;
 	}
@@ -55,7 +58,7 @@ public class VlasnikInMemoryDAOImpl implements VlasnikDAO {
 		String brojVozackeDozvole = "";
 
 		while (1 == 1) {
-			brojVozackeDozvole = "Broj dozvole-" + RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo();
+			brojVozackeDozvole = RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo();
 			if (!VlasnikInMemoryDAOImpl.vlasnici.containsKey(brojVozackeDozvole)) {
 				VlasnikInMemoryDAOImpl.vlasnici.put(brojVozackeDozvole, null);
 				break;
