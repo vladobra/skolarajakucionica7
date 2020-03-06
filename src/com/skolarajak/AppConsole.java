@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.skolarajak.exceptions.dao.ResultNotFoundException;
+import com.skolarajak.model.Vlasnik;
 import com.skolarajak.model.Vozilo;
 import com.skolarajak.servisi.AdministriranjeVozila;
+import com.skolarajak.utils.PrikazUtils;
 
 /**
  * Glavna aplikacija za administraciju vozila i vlasnika.
@@ -38,6 +40,7 @@ public class AppConsole {
 	            case "0" : opcija0(); break;
 	        	case "1" : opcija1(); break;
 	        	case "2" : opcija2(); break;
+	        	case "3" : opcija3(); break;
 	        }
 	        if ("kraj".equals(s)) {
 	        	System.out.println("KRAJ RADA, HVALA!!");
@@ -50,21 +53,28 @@ public class AppConsole {
 		List<Vozilo> vozila = administracijaVozila.dajSvaVozila();
 		System.out.println("=====IZLISTAJ VOZILA======");
 		System.out.println("Ukupno vozila: " + vozila.size());
-		izlistajVozila(vozila);
+		PrikazUtils.izlistajVozila(vozila);
 	}
 	
 	private static void opcija1() {
 		System.out.println("=====IZLISTAJ EURO3 VOZILA======");
 		List<Vozilo> euro3Vozila = administracijaVozila.euro3Vozila();
 		System.out.println(euro3Vozila.size());
-		izlistajVozila(euro3Vozila);
+		PrikazUtils.izlistajVozila(euro3Vozila);
 	}
 	
     private static void opcija2 () {
     	System.out.println("=====IZLISTAJ AKTIVNA VOZILA======");
     	List<Vozilo> aktivnaVozila = administracijaVozila.aktivnaVozila();
 		System.out.println(aktivnaVozila.size());
-		izlistajVozila(aktivnaVozila);
+		PrikazUtils.izlistajVozila(aktivnaVozila);
+	}
+    
+    private static void opcija3() throws ResultNotFoundException {
+		List<Vlasnik> vlasnici = administracijaVozila.dajSveVlasnike();
+		System.out.println("=====IZLISTAJ VLASNIKE======");
+		System.out.println("Ukupno vlasnika: " + vlasnici.size());
+		PrikazUtils.izlistajVlasnici(vlasnici);
 	}
 	
 	private static void prikaziOpcije( ) {
@@ -72,16 +82,11 @@ public class AppConsole {
 		System.out.println("0 -> Izlistaj vozila");
 		System.out.println("1 -> Izlistaj euro3 vozila");
 		System.out.println("2 -> Izlistaj aktivna vozila");
+		System.out.println("3 -> Izlistaj vlasnike");
+		System.out.println("4 -> Izlistaj vlasnike svih aktivnih vozila");
+		System.out.println("5 -> Izlistaj vozila svih vlasnika cije ime sadrzi slovo A");
 		System.out.println("kraj -> Izaz iz aplikacije");
 		System.out.println("-------------------------------------");
 	}
 	
-	private static void izlistajVozila(List<Vozilo> vozila) {
-		vozila.forEach(AppConsole::printVozilo);
-	}
-	
-	private static void printVozilo(Vozilo vozilo) {
-		System.out.println("Godiste: " + vozilo.getGodisteProizvodnje() + " Aktivno: " + vozilo.isAktivno()
-		+ " Registarski broj: " + vozilo.getRegistarskiBroj());
-	}
 }

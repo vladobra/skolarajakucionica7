@@ -16,4 +16,6 @@ public interface VoziloDAO {
 	
 	List<Vozilo> getEuro3Vozila();
 	List<Vozilo> getAktivnaVozila();
+	
+	List<Vozilo> getAllVozilaCijeImeVlasnikaSadrziSlovoA();
 }

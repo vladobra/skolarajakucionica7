@@ -88,6 +88,18 @@ public class AdministriranjeVozila {
 	public List<Vozilo> dajSvaVozila() throws ResultNotFoundException {
 		return voziloDAO.getAll();
 	}
+	
+	public List<Vlasnik> dajSveVlasnike() throws ResultNotFoundException {
+		return vlasnikDAO.getAll();
+	}
+	
+	public List<Vlasnik> dajSveVlasnikeAktivnihVozila() throws ResultNotFoundException {
+		return vlasnikDAO.getAllVlasniciAktivnihVozila();
+	}
+	
+	public List<Vozilo> dajSvaVozilaCijeImeVlasnikaSadrziSlovoA() throws ResultNotFoundException {
+		return voziloDAO.getAllVozilaCijeImeVlasnikaSadrziSlovoA();
+	}
 
 	private int dodeliGodinuProizvodnje() {
 		// godiste <-- {Godiste random 1960 - 2019}

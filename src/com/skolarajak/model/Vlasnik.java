@@ -31,4 +31,9 @@ public class Vlasnik {
 		this.vozilo = vozilo;
 	}
 	
+	public String toString() {
+		return "Ime: " + this.getIme() 
+		+ " Prezime: " + this.getPrezime()
+		+ " Broj dozvole: " + this.getBrojVozackeDozvole();
+	}
 }

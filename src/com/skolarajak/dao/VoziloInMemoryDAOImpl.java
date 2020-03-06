@@ -79,4 +79,10 @@ public class VoziloInMemoryDAOImpl implements VoziloDAO {
 		return VoziloInMemoryDAOImpl.registrovanaVozila.values()
 				.stream().filter(v -> v.isAktivno()).collect(Collectors.toList());
 	}
+
+	@Override
+	public List<Vozilo> getAllVozilaCijeImeVlasnikaSadrziSlovoA() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -12,4 +12,6 @@ public interface VlasnikDAO {
 	void delete(String brojVozackeDozvole);
 	List<Vlasnik> getAll() throws ResultNotFoundException;
 	long count();
+	
+	List<Vlasnik> getAllVlasniciAktivnihVozila() throws ResultNotFoundException;
 }
