@@ -38,4 +38,5 @@ public class Vlasnik {
 		+ "Reg broj vozila: " + this.vozilo.getRegistarskiBroj()
 		+ " Status vozila: " + this.vozilo.isAktivno();
 	}
+	
 }

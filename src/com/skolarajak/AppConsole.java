@@ -88,11 +88,13 @@ public class AppConsole {
 		PrikazUtils.izlistajVlasnikeUDatoteku(vlasnici);
 	}
     
-    private static void opcija5() throws ResultNotFoundException {
+    private static void opcija5() throws ResultNotFoundException, IOException {
 		List<Vozilo> vozila = administracijaVozila.dajSvaVozilaCijeImeVlasnikaSadrziSlovoA();
 		System.out.println("=====IZLISTAJ VOZILA  CIJE IME VLASNIKA SADRZI SLOVO A======");
 		System.out.println("Ukupno vozila: " + vozila.size());
 		PrikazUtils.izlistajVozila(vozila);
+		PrikazUtils.izlistajVozilaUDatoteku(vozila);
+		PrikazUtils.izlistajVozilaIzDatoteke();
 	} 
 	
 	private static void prikaziOpcije( ) {
