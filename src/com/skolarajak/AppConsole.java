@@ -41,6 +41,8 @@ public class AppConsole {
 	        	case "1" : opcija1(); break;
 	        	case "2" : opcija2(); break;
 	        	case "3" : opcija3(); break;
+	        	case "4" : opcija4(); break;
+	        	case "5" : opcija5(); break;
 	        }
 	        if ("kraj".equals(s)) {
 	        	System.out.println("KRAJ RADA, HVALA!!");
@@ -76,6 +78,21 @@ public class AppConsole {
 		System.out.println("Ukupno vlasnika: " + vlasnici.size());
 		PrikazUtils.izlistajVlasnici(vlasnici);
 	}
+    
+    private static void opcija4() throws ResultNotFoundException {
+		List<Vlasnik> vlasnici = administracijaVozila.dajSveVlasnikeAktivnihVozila();
+		System.out.println("=====IZLISTAJ VLASNIKE SVIH AKTIVNIH VOZILA======");
+		System.out.println("Ukupno vlasnika aktivnih vozila: " + vlasnici.size());
+		PrikazUtils.izlistajVlasnici(vlasnici);
+		
+	}
+    
+    private static void opcija5() throws ResultNotFoundException {
+		List<Vozilo> vozila = administracijaVozila.dajSvaVozilaCijeImeVlasnikaSadrziSlovoA();
+		System.out.println("=====IZLISTAJ VOZILA  CIJE IME VLASNIKA SADRZI SLOVO A======");
+		System.out.println("Ukupno vozila: " + vozila.size());
+		PrikazUtils.izlistajVozila(vozila);
+	} 
 	
 	private static void prikaziOpcije( ) {
 		System.out.println("-------------------------------------");

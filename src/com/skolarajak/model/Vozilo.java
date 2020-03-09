@@ -76,7 +76,8 @@ public class Vozilo {
 	@Override
 	public String toString() {
 		return "Godiste: " + this.getGodisteProizvodnje() + " Aktivno: " + this.isAktivno()
-		+ " Registarski broj: " + this.getRegistarskiBroj();
+		+ " Registarski broj: " + this.getRegistarskiBroj()
+		+ " Ime vlasnika: " + this.vlasnik.getIme();
 	}
 
 	/**
