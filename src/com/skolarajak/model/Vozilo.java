@@ -14,7 +14,7 @@ public class Vozilo {
 	private String registarskiBroj;
 	private Vlasnik vlasnik;
 
-	private Vozilo() {
+	public Vozilo() {
 		this.godisteProizvodnje = 0;
 	}
 
