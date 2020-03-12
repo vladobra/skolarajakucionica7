@@ -3,6 +3,7 @@ package com.skolarajak.utils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,7 +14,7 @@ import com.skolarajak.model.Vozilo;
 
 public class PrikazUtils {
 	private static String FILE_ROOT = "c:/tmp/izvestaj.txt";
-	private static String SEPARATOR = ";";
+	public static String SEPARATOR = ";";
 	
 	public static void izlistajVozila(List<Vozilo> vozila) {
 		vozila.forEach(PrikazUtils::printVozilo);
@@ -39,6 +40,13 @@ public class PrikazUtils {
 	}
 	
 	public static void izlistajVozilaUDatoteku(List<Vozilo> vozila) throws IOException {
+		
+		Class clazz = Vlasnik.class;
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) 
+        {
+            System.out.println("fieldName: "+field.getName()+", fieldType: "+field.getType());
+        }
 		//
 		//Get the file reference
 		Path path = Paths.get(FILE_ROOT);
@@ -46,6 +54,7 @@ public class PrikazUtils {
 		//Use try-with-resource to get auto-closeable writer instance
 		try (BufferedWriter writer = Files.newBufferedWriter(path /* ,StandardOpenOption.APPEND */)) 
 		{
+
 			for(Vozilo v : vozila) {
 				 writer.write(v.toString());
 				 writer.newLine();

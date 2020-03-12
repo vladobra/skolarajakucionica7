@@ -1,5 +1,7 @@
 package com.skolarajak.model;
 
+import com.skolarajak.utils.PrikazUtils;
+
 /**
  * Model klasa Vozila.
  * 
@@ -112,6 +114,12 @@ public class Vozilo {
 		} else if (!registarskiBroj.equals(other.registarskiBroj))
 			return false;
 		return true;
+	}
+	
+	public String toCSV() {
+		return this.getGodisteProizvodnje() + ";"+ this.isAktivno() + PrikazUtils.SEPARATOR
+		+  this.getRegistarskiBroj() + PrikazUtils.SEPARATOR
+		+  this.vlasnik.getIme();
 	}
 
 }
