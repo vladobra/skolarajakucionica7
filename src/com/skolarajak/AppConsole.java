@@ -59,14 +59,14 @@ public class AppConsole {
 		PrikazUtils.izlistajVozila(vozila);
 	}
 	
-	private static void opcija1() {
+	private static void opcija1() throws ResultNotFoundException {
 		System.out.println("=====IZLISTAJ EURO3 VOZILA======");
 		List<Vozilo> euro3Vozila = administracijaVozila.euro3Vozila();
 		System.out.println(euro3Vozila.size());
 		PrikazUtils.izlistajVozila(euro3Vozila);
 	}
 	
-    private static void opcija2 () {
+    private static void opcija2 () throws ResultNotFoundException {
     	System.out.println("=====IZLISTAJ AKTIVNA VOZILA======");
     	List<Vozilo> aktivnaVozila = administracijaVozila.aktivnaVozila();
 		System.out.println(aktivnaVozila.size());
