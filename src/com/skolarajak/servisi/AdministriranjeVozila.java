@@ -63,6 +63,7 @@ public class AdministriranjeVozila {
 			+ zadnjeVozilo.getVlasnik().getBrojVozackeDozvole());
 
 			System.out.println("UKUPNO reg brojeva: " + voziloDAO.count());
+			System.out.println("UKUPNO vlasnika: " + vlasnikDAO.count());
 			Vlasnik zadnjiVlasnik = zadnjeVozilo.getVlasnik();
 			Vlasnik ucitaniVlasnik = vlasnikDAO.read(zadnjiVlasnik.getBrojVozackeDozvole());
 			
