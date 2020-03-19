@@ -9,7 +9,7 @@ import com.skolarajak.utils.PrikazUtils;
  *
  */
 public class Vozilo {
-	private final int godisteProizvodnje;
+	private Integer godisteProizvodnje;
 	private boolean aktivno;
 	private String registarskiBroj;
 	private Vlasnik vlasnik;
@@ -18,16 +18,25 @@ public class Vozilo {
 		this.godisteProizvodnje = 0;
 	}
 
-	public Vozilo(int godisteProizvodnje) {
+	public Vozilo(Integer godisteProizvodnje) {
 		this.godisteProizvodnje = godisteProizvodnje;
 	}
+	
+	/**
+	 * 
+	 * @param godisteProizvodnje
+	 */
+	public void setGodisteProizvodnje(Integer godisteProizvodnje) {
+		this.godisteProizvodnje = godisteProizvodnje;
+	}
+
 
 	/**
 	 * Get metoda za godiste proizvodnje
 	 * 
 	 * @return int godisteProizvodnje
 	 */
-	public int getGodisteProizvodnje() {
+	public Integer getGodisteProizvodnje() {
 		return godisteProizvodnje;
 	}
 
