@@ -29,9 +29,14 @@ public class AdministriranjeVozila {
 	private VoziloDAO voziloDAO;
 	private VlasnikDAO vlasnikDAO;
 
-	public AdministriranjeVozila() {
+	public AdministriranjeVozila()  {
 		voziloDAO = new VoziloFileSystemDAO();
-		vlasnikDAO = new VlasnikDBDAOImpl();
+		try {
+			vlasnikDAO = new VlasnikDBDAOImpl();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -50,6 +55,11 @@ public class AdministriranjeVozila {
 				zadnjeVozilo = voziloDAO.create(vozilo);
 				
 				Vlasnik vlasnik = new Vlasnik();
+				
+				vlasnik.setBrojVozackeDozvole(String.valueOf(System.currentTimeMillis()));
+				vlasnik.setIme(RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo());
+				vlasnik.setPrezime(RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo());
+				
 				vlasnik = vlasnikDAO.create(vlasnik);
 				vlasnik.setVozilo(zadnjeVozilo);
 				
