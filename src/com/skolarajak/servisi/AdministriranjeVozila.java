@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.skolarajak.dao.VlasnikDAO;
+import com.skolarajak.dao.VlasnikDBDAOImpl;
 import com.skolarajak.dao.VlasnikFileSystemDAO;
 import com.skolarajak.dao.VlasnikInMemoryDAOImpl;
 import com.skolarajak.dao.VoziloDAO;
@@ -30,7 +31,7 @@ public class AdministriranjeVozila {
 
 	public AdministriranjeVozila() {
 		voziloDAO = new VoziloFileSystemDAO();
-		vlasnikDAO = new VlasnikFileSystemDAO();
+		vlasnikDAO = new VlasnikDBDAOImpl();
 	}
 
 	/**
