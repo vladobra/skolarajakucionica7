@@ -8,6 +8,7 @@ import com.skolarajak.dao.VlasnikDBDAOImpl;
 import com.skolarajak.dao.VlasnikFileSystemDAO;
 import com.skolarajak.dao.VlasnikInMemoryDAOImpl;
 import com.skolarajak.dao.VoziloDAO;
+import com.skolarajak.dao.VoziloDBDAOImpl;
 import com.skolarajak.dao.VoziloFileSystemDAO;
 import com.skolarajak.dao.VoziloInMemoryDAOImpl;
 import com.skolarajak.exceptions.dao.ResultNotFoundException;
@@ -30,9 +31,9 @@ public class AdministriranjeVozila {
 	private VlasnikDAO vlasnikDAO;
 
 	public AdministriranjeVozila()  {
-		voziloDAO = new VoziloFileSystemDAO();
 		try {
 			vlasnikDAO = new VlasnikDBDAOImpl();
+			voziloDAO = new VoziloDBDAOImpl();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,8 +52,8 @@ public class AdministriranjeVozila {
 			for (int i = 0; i < Konstante.UKUPAN_BROJ_VOZILA_U_SISTEMU; i++) {
 				int godinaProizvodnje = dodeliGodinuProizvodnje();
 				Vozilo vozilo = new Vozilo(godinaProizvodnje);
+				vozilo.setRegistarskiBroj(String.valueOf(System.currentTimeMillis()));
 				vozilo.setAktivno(Math.random() > PRAG_RASPODELE_AKTIVNIH_VOZILA);
-				zadnjeVozilo = voziloDAO.create(vozilo);
 				
 				Vlasnik vlasnik = new Vlasnik();
 				
@@ -61,11 +62,13 @@ public class AdministriranjeVozila {
 				vlasnik.setPrezime(RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo() + RandomUtils.slucajnoSlovo());
 				
 				vlasnik = vlasnikDAO.create(vlasnik);
+				vozilo.setVlasnik(vlasnik);
+				zadnjeVozilo = voziloDAO.create(vozilo);
+				
+				
 				vlasnik.setVozilo(zadnjeVozilo);
 				
 				vlasnik = vlasnikDAO.update(vlasnik);
-				
-				zadnjeVozilo.setVlasnik(vlasnik);
 				zadnjeVozilo = voziloDAO.update(zadnjeVozilo);
 			}
 			

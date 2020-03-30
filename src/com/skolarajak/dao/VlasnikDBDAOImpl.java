@@ -10,17 +10,16 @@ import java.util.List;
 
 import com.skolarajak.exceptions.dao.ResultNotFoundException;
 import com.skolarajak.model.Vlasnik;
+import com.skolarajak.model.Vozilo;
+import com.skolarajak.utils.DBUtils;
 import com.skolarajak.utils.RandomUtils;
 
 public class VlasnikDBDAOImpl implements VlasnikDAO {
 	
-	private final String myDriver = "com.mysql.jdbc.Driver";
-	private final String myUrl = "jdbc:mysql://localhost:3306/ams";
-	
 	public VlasnikDBDAOImpl() throws ClassNotFoundException {
 		// create a mysql database connection
 
-	    Class.forName(myDriver);
+	    Class.forName(DBUtils.myDriver);
 	}
 
 	@Override
@@ -52,14 +51,17 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 	@Override
 	public Vlasnik read(String brojVozackeDozvole) throws ResultNotFoundException {
 		Vlasnik vlasnik = new Vlasnik();
+		Vozilo vozilo =  new Vozilo();
 		try {
 			Connection conn = getConnection();
 
 			// the mysql insert statement
-			String query = "select * from vlasnik where brojVozackeDozvole=?";
+			String query = "select * from vlasnik, vozilo where brojVozackeDozvole=?"
+					+ " and vlasnik.brojVozackeDozvole=vozilo.vlasnikId";
 
 			// create the mysql insert preparedstatement
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
+		
 			preparedStmt.setString(1, brojVozackeDozvole);
 
 			// execute the preparedstatement
@@ -71,14 +73,21 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 		      vlasnik.setBrojVozackeDozvole(brojVozackeDozvole);
 		      vlasnik.setIme(rs.getString("ime") );
 		      vlasnik.setPrezime(rs.getString("prezime") );
+		      
+		      vozilo.setRegistarskiBroj(rs.getString("regbroj"));
+		      vozilo.setGodisteProizvodnje(rs.getInt("godisteProizvodnje"));
+		      vozilo.setAktivno(rs.getBoolean("status"));
+		      vozilo.setVlasnik(vlasnik);
+		      
+		      vlasnik.setVozilo(vozilo);
 		    }
 		    
 		    rs.close();
 			preparedStmt.close();
 			conn.close();
-		} catch (Exception e) {
+		} catch (Throwable t) {
 			System.err.println("Got an exception!");
-			System.err.println(e.getMessage());
+			System.err.println(t.getMessage());
 		}
 		return vlasnik;
 	};
@@ -111,7 +120,25 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 
 	@Override
 	public void delete(String brojVozackeDozvole) {
-		// TODO Auto-generated method stub
+		try {
+			Connection conn = getConnection();
+
+			// the mysql insert statement
+			String query = "delete from vlasnik where brojVozackeDozvole = ?";
+
+			// create the mysql insert preparedstatement
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, brojVozackeDozvole);
+
+			// execute the preparedstatement
+			preparedStmt.execute();
+			
+            preparedStmt.close();
+			conn.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception!");
+			System.err.println(e.getMessage());
+		}
 
 	}
 
@@ -158,6 +185,6 @@ public class VlasnikDBDAOImpl implements VlasnikDAO {
 	
 	private Connection getConnection() throws ClassNotFoundException, SQLException {
 		
-		return DriverManager.getConnection(myUrl, "root", "root");
+		return DriverManager.getConnection(DBUtils.myUrl, "root", "root");
 	}
 }
