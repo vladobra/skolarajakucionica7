@@ -12,6 +12,7 @@ import com.skolarajak.exceptions.dao.ResultNotFoundException;
 import com.skolarajak.model.Vlasnik;
 import com.skolarajak.model.Vozilo;
 import com.skolarajak.utils.DBUtils;
+import com.skolarajak.utils.Konstante;
 
 public class VoziloDBDAOImpl implements VoziloDAO {
 	
@@ -149,7 +150,7 @@ public class VoziloDBDAOImpl implements VoziloDAO {
 
 		try {
 			Connection conn = getConnection();
-
+	        
 			// the mysql insert statement
 			String query = "select * from vlasnik, vozilo"
 					+ " WHERE vlasnik.brojVozackeDozvole=vozilo.vlasnikId";
@@ -219,20 +220,137 @@ public class VoziloDBDAOImpl implements VoziloDAO {
 
 	@Override
 	public List<Vozilo> getEuro3Vozila() throws ResultNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Vozilo> vozila = new ArrayList<Vozilo>();
+
+		try {
+			Connection conn = getConnection();
+
+			// the mysql insert statement
+			String query = "select * from vlasnik, vozilo"
+					+ " WHERE vlasnik.brojVozackeDozvole=vozilo.vlasnikId "
+					+ "and vozilo.godisteProizvodnje>?";
+
+			// create the mysql insert preparedstatement
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, Konstante.EURO_3_GODISTE);
+
+			// execute the preparedstatement
+
+			ResultSet rs = preparedStmt.executeQuery();
+
+			while (rs.next()) {
+				Vlasnik vlasnik = new Vlasnik();
+				Vozilo vozilo = new Vozilo();
+				vlasnik.setBrojVozackeDozvole(rs.getString("brojVozackeDozvole"));
+				vlasnik.setIme(rs.getString("ime"));
+				vlasnik.setPrezime(rs.getString("prezime"));
+
+				vozilo.setRegistarskiBroj(rs.getString("regbroj"));
+				vozilo.setGodisteProizvodnje(rs.getInt("godisteProizvodnje"));
+				vozilo.setAktivno(rs.getBoolean("status"));
+				vozilo.setVlasnik(vlasnik);
+				vlasnik.setVozilo(vozilo);
+				
+				vozila.add(vozilo);
+			}
+
+			rs.close();
+			preparedStmt.close();
+			conn.close();
+		} catch (Throwable t) {
+			System.err.println("Got an exception!");
+			System.err.println(t.getMessage());
+		}
+		return vozila;
 	}
 
 	@Override
 	public List<Vozilo> getAktivnaVozila() throws ResultNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Vozilo> vozila = new ArrayList<Vozilo>();
+
+		try {
+			Connection conn = getConnection();
+
+			// the mysql insert statement
+			String query = "select * from vlasnik, vozilo"
+					+ " WHERE vlasnik.brojVozackeDozvole=vozilo.vlasnikId and vozilo.status=1";
+
+			// create the mysql insert preparedstatement
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+			// execute the preparedstatement
+
+			ResultSet rs = preparedStmt.executeQuery();
+
+			while (rs.next()) {
+				Vlasnik vlasnik = new Vlasnik();
+				Vozilo vozilo = new Vozilo();
+				vlasnik.setBrojVozackeDozvole(rs.getString("brojVozackeDozvole"));
+				vlasnik.setIme(rs.getString("ime"));
+				vlasnik.setPrezime(rs.getString("prezime"));
+
+				vozilo.setRegistarskiBroj(rs.getString("regbroj"));
+				vozilo.setGodisteProizvodnje(rs.getInt("godisteProizvodnje"));
+				vozilo.setAktivno(rs.getBoolean("status"));
+				vozilo.setVlasnik(vlasnik);
+				vlasnik.setVozilo(vozilo);
+				
+				vozila.add(vozilo);
+			}
+
+			rs.close();
+			preparedStmt.close();
+			conn.close();
+		} catch (Throwable t) {
+			System.err.println("Got an exception!");
+			System.err.println(t.getMessage());
+		}
+		return vozila;
 	}
 
 	@Override
 	public List<Vozilo> getAllVozilaCijeImeVlasnikaSadrziSlovoA() throws ResultNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Vozilo> vozila = new ArrayList<Vozilo>();
+
+		try {
+			Connection conn = getConnection();
+
+			// the mysql insert statement
+			String query = "select * from vlasnik, vozilo"
+					+ " WHERE vlasnik.brojVozackeDozvole=vozilo.vlasnikId "
+					+ "and lower(vlasnik.ime) like '%a%'";
+
+			// create the mysql insert preparedstatement
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+			// execute the preparedstatement
+
+			ResultSet rs = preparedStmt.executeQuery();
+
+			while (rs.next()) {
+				Vlasnik vlasnik = new Vlasnik();
+				Vozilo vozilo = new Vozilo();
+				vlasnik.setBrojVozackeDozvole(rs.getString("brojVozackeDozvole"));
+				vlasnik.setIme(rs.getString("ime"));
+				vlasnik.setPrezime(rs.getString("prezime"));
+
+				vozilo.setRegistarskiBroj(rs.getString("regbroj"));
+				vozilo.setGodisteProizvodnje(rs.getInt("godisteProizvodnje"));
+				vozilo.setAktivno(rs.getBoolean("status"));
+				vozilo.setVlasnik(vlasnik);
+				vlasnik.setVozilo(vozilo);
+				
+				vozila.add(vozilo);
+			}
+
+			rs.close();
+			preparedStmt.close();
+			conn.close();
+		} catch (Throwable t) {
+			System.err.println("Got an exception!");
+			System.err.println(t.getMessage());
+		}
+		return vozila;
 	}
 	
 private Connection getConnection() throws ClassNotFoundException, SQLException {

@@ -123,6 +123,16 @@ public class AdministriranjeVozila {
 	public List<Vozilo> dajSvaVozilaCijeImeVlasnikaSadrziSlovoA() throws ResultNotFoundException {
 		return voziloDAO.getAllVozilaCijeImeVlasnikaSadrziSlovoA();
 	}
+	
+	public void obrisiSve() throws ResultNotFoundException {
+		for(Vozilo vozilo : voziloDAO.getAll()) {
+			voziloDAO.delete(vozilo.getRegistarskiBroj());
+		}
+		
+		for(Vlasnik vlasnik : vlasnikDAO.getAll()) {
+			vlasnikDAO.delete(vlasnik.getBrojVozackeDozvole());
+		}
+	}
 
 	private int dodeliGodinuProizvodnje() {
 		// godiste <-- {Godiste random 1960 - 2019}

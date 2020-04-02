@@ -44,6 +44,7 @@ public class AppConsole {
 	        	case "3" : opcija3(); break;
 	        	case "4" : opcija4(); break;
 	        	case "5" : opcija5(); break;
+	        	case "6" : opcija6(); break;
 	        }
 	        if ("kraj".equals(s)) {
 	        	System.out.println("KRAJ RADA, HVALA!!");
@@ -96,6 +97,11 @@ public class AppConsole {
 		PrikazUtils.izlistajVozilaUDatoteku(vozila);
 		PrikazUtils.izlistajVozilaIzDatoteke();
 	} 
+    
+    private static void opcija6() throws ResultNotFoundException, IOException {
+		administracijaVozila.obrisiSve();
+		System.out.println("=====SVE JE OBRISANO!!!!======");
+	} 
 	
 	private static void prikaziOpcije( ) {
 		System.out.println("-------------------------------------");
@@ -105,6 +111,7 @@ public class AppConsole {
 		System.out.println("3 -> Izlistaj vlasnike");
 		System.out.println("4 -> Izlistaj vlasnike svih aktivnih vozila");
 		System.out.println("5 -> Izlistaj vozila svih vlasnika cije ime sadrzi slovo A");
+		System.out.println("6 -> Obrisi sve");
 		System.out.println("kraj -> Izaz iz aplikacije");
 		System.out.println("-------------------------------------");
 	}
